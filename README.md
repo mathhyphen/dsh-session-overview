@@ -4,7 +4,7 @@
 
 DSH（DeepSeek Harness）**会话总览面板插件** —— 纯 JavaScript 免构建，运行时注入即生效。
 
-侧边栏底部多一颗「会话总览」图标按钮（内联 SVG 线性图标，随主题变色），点开悬浮面板即可总览**全部会话**：
+工作区头部行旁多一颗「会话总览」图标按钮（内联 SVG 线性图标，随主题变色，与搜索/视图选项/添加工作区那排对齐），点开悬浮面板即可总览**全部会话**：
 
 - **四态徽章**：🟢 运行中（脉动） / 🔵 新完结·未读 / ⚪ 空闲 / 📦 已归档
 - **工作区分组**：按 workspace 分节展示（可切平铺），「未分组」固定末位
@@ -52,6 +52,7 @@ dev_uninject_plugin dsh-session-overview  # 卸载即净
 ## 列表语义
 
 - 归档会话**保留展示**（打 `archived=true` 标、琥珀徽章），不再隐藏
+- 子代理/团队会话过滤：`origin === 'subagent'` 或 `delegationDepth > 0` 的会话不进总览（行结构仍带 `origin` 字段便于调试）
 - blank 且非运行中的空会话过滤
 - attached（`ctx.sessions.list()`）∪ cold（`ctx.get('sessionPersistence').list()`）按 id 去重
 - 可选服务（sessionProjections / sessionPersistence / sessionProjectionCache / workspaceRegistry）缺失时自动判空降级，不炸面板
@@ -70,7 +71,7 @@ dev_uninject_plugin dsh-session-overview  # 卸载即净
 ## 结构
 
 - `lib/index.js` — host 侧 cordis 插件（`name` / `inject:['webServer']` / `apply`）：前缀路由（面板页 + 数据 API），数据聚合与排序见 `NOTES-data.md`
-- `lib/client.js` — 浏览器模块（手写 `__ModuleLoader__` CJS 外壳）：注册 `sidebar.footer.action` 槽位（两参契约 `ctx.slots.register(options, Component)`，React Entry + `createPortal` 悬浮层）；承载跳转桥——监听面板 iframe 的 `dsh-so:navigate` 消息（origin + type 双校验）→ `ctx.sessions.open(id)` → 成功收起面板并回执 `dsh-so:navigated`
+- `lib/client.js` — 浏览器模块（手写 `__ModuleLoader__` CJS 外壳）：经 `shell.overlay` 槽（additive list/root，仅承载生命周期）把入口按钮做成**工作区头部行的行内原生 portal 子元素**——探测「添加工作区」等关键词控件为锚点（多命中取该行最右），取其 parentElement 链上包含全部同行命中控件的最贴身容器为 hostEl，`createPortal(button, hostEl)` 成为真实 flex 子元素、对齐交给行自身布局；自愈：document.body MutationObserver + 120ms 防抖 + needsReinsert(isConnected/contains) 失联即递增 portal key 强制重插，卸载清理 observer 与残留节点；无锚点静默不渲染（直达 URL 兜底）；localStorage `dsh-so-debug=1` 可查看每次探测几何；两参契约 `ctx.slots.register(options, Component)`（React Entry 管状态 + `createPortal` 悬浮层）；承载跳转桥——监听面板 iframe 的 `dsh-so:navigate` 消息（origin + type 双校验）→ `ctx.sessions.open(id)` → 成功收起面板并回执 `dsh-so:navigated`
 - `NOTES-*.md` — 开发期研究档案：插件契约 / 会话数据面 / slots 实证 / 跳转通道 / 注入验收清单，全部附宿主源码出处
 - 无 src/scripts/tsconfig —— 兼容 npm 安装版 DSH（无 TS 构建管线），全部手写纯 JS
 
