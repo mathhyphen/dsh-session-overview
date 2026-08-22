@@ -1,0 +1,25 @@
+{
+  "name": "@dsh-external/dsh-session-overview",
+  "description": "DSH 会话总览面板（纯 JS 免构建）：侧边栏入口 + 独立页面 /dsh-session-overview，列出全部会话的状态/标题/workspace/最近活动。",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib"
+  ],
+  "dsh": {
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-slots"
+      ],
+      "platform": "web"
+    }
+  }
+}
