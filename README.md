@@ -59,6 +59,14 @@ dev_uninject_plugin dsh-session-overview  # 卸载即净
 - 未读判定在浏览器本地：`unread = !running && !archived && lastActivity > seen[id]`；四态优先级 `running > archived > unread > idle`
 - 统计行跟随当前筛选口径，总数以「显示 x / 共 N」注明
 
+## 性能（t30）
+
+- **服务端缓存**：插件内维护 rows 快照，`session/event` / `agent/status` 触发脏标记（≥500ms 防抖合并后台重算）；`/api/state` 常态直接返回缓存（毫秒级），脏时同步重算一次；超 10s 未重算自动后台自愈（防事件监听失效）
+- **增量计算**：单会话行按 `(createdAt|lastEventAt|running|origin|depth|cwd)` 键复用，未变化的会话跳过投影快照重算；blank 廉价判定前置到投影之前
+- **客户端秒开**：最近一次成功 rows 存 localStorage `dsh-so-cache`，打开面板先瞬时渲染缓存再后台取新数据（差异轻微淡入）
+- **乐观已读**：行点击瞬间写已读账本并即时重渲染（蓝点点击即消）；跳转回执 `ok=false` 时自动回滚该条
+- **观测**：URL 加 `?debug=1` 返回 `stats`（ms/hits/misses/fromCache/cached/ageMs）；localStorage `dsh-so-debug=1` 在控制台输出每次重算与桥事件日志
+
 ## 本地存储键
 
 | 键 | 内容 |
@@ -67,11 +75,12 @@ dev_uninject_plugin dsh-session-overview  # 卸载即净
 | `dsh-so-grouped` | 分组/平铺偏好 |
 | `dsh-so-autorefresh` | 自动刷新偏好（默认关） |
 | `dsh-so-filters` | 状态筛选（`'all' \| 'running' \| 'unread' \| 'idle' \| 'archived'`） |
+| `dsh-so-cache` | 秒开缓存（最近一次成功 rows 快照） |
 
 ## 结构
 
 - `lib/index.js` — host 侧 cordis 插件（`name` / `inject:['webServer']` / `apply`）：前缀路由（面板页 + 数据 API），数据聚合与排序见 `NOTES-data.md`
-- `lib/client.js` — 浏览器模块（手写 `__ModuleLoader__` CJS 外壳）：经 `shell.overlay` 槽（additive list/root，仅承载生命周期）把入口按钮做成**工作区头部行的行内原生 portal 子元素**——探测「添加工作区」等关键词控件为锚点（多命中取该行最右），取其 parentElement 链上包含全部同行命中控件的最贴身容器为 hostEl，`createPortal(button, hostEl)` 成为真实 flex 子元素、对齐交给行自身布局；自愈：document.body MutationObserver + 120ms 防抖 + needsReinsert(isConnected/contains) 失联即递增 portal key 强制重插，卸载清理 observer 与残留节点；无锚点静默不渲染（直达 URL 兜底）；localStorage `dsh-so-debug=1` 可查看每次探测几何；两参契约 `ctx.slots.register(options, Component)`（React Entry 管状态 + `createPortal` 悬浮层）；承载跳转桥——监听面板 iframe 的 `dsh-so:navigate` 消息（origin + type 双校验）→ `ctx.sessions.open(id)` → 成功收起面板并回执 `dsh-so:navigated`
+- `lib/client.js` — 浏览器模块（手写 `__ModuleLoader__` CJS 外壳）：经 `shell.overlay` 槽（additive list/root，仅承载生命周期）把入口按钮做成**工作区头部行的行内原生 portal 子元素**——以「搜索会话/Search」前缀的侧边栏搜索输入框为**陆标**（i18n 双语，退回首个可见文本输入框、无陆标静默），行容器取陆标向上 ≤4 层首个含 ≥2 个 button 子元素的祖先（即图标按钮排，仍无则用 parentElement），`createPortal(button, hostEl)` 成为真实 flex 子元素、对齐交给行自身布局；自愈：document.body MutationObserver + 120ms 防抖 + needsReinsert(isConnected/contains) 失联即递增 portal key 强制重插，卸载清理 observer 与残留节点；localStorage `dsh-so-debug=1` 可查看每次探测几何；两参契约 `ctx.slots.register(options, Component)`（React Entry 管状态 + `createPortal` 悬浮层）；承载跳转桥——监听面板 iframe 的 `dsh-so:navigate` 消息（origin + type 双校验，**Entry 挂载即注册、不依赖面板开合**）→ `ctx.sessions.open(id)` → 回执先发、成功才收起面板并回执 `dsh-so:navigated`；localStorage `dsh-so-debug=1` 同时输出探测几何与跳转桥全链路事件（navigate-received / open-result / reply-sent / navigated-ok）
 - `NOTES-*.md` — 开发期研究档案：插件契约 / 会话数据面 / slots 实证 / 跳转通道 / 注入验收清单，全部附宿主源码出处
 - 无 src/scripts/tsconfig —— 兼容 npm 安装版 DSH（无 TS 构建管线），全部手写纯 JS
 
