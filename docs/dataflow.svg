@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" font-family="'Segoe UI', 'Microsoft YaHei', system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#f1f5f9"/>
+    </linearGradient>
+    <linearGradient id="host" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="ui" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#60a5fa"/>
+    </marker>
+  </defs>
+  <rect width="900" height="480" rx="18" fill="url(#bg)"/>
+  <text x="450" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#e2e8f0">dsh-session-overview 数据流</text>
+  <text x="450" y="64" text-anchor="middle" font-size="13" fill="#94a3b8">全部会话总览 · 数据面聚合 → 一键跳转</text>
+
+  <!-- data sources (left) -->
+  <rect x="40" y="120" width="230" height="64" rx="11" fill="url(#card)" stroke="#cbd5e1"/>
+  <text x="155" y="148" text-anchor="middle" font-size="13" font-weight="600" fill="#0f172a">已附着会话 · ctx.sessions</text>
+  <text x="155" y="166" text-anchor="middle" font-size="11" fill="#475569">运行中 + 最近活动 + 标题投影</text>
+
+  <rect x="40" y="210" width="230" height="64" rx="11" fill="url(#card)" stroke="#cbd5e1"/>
+  <text x="155" y="238" text-anchor="middle" font-size="13" font-weight="600" fill="#0f172a">冷会话 · sessionPersistence</text>
+  <text x="155" y="256" text-anchor="middle" font-size="11" fill="#475569">归档 / 未附着 · 按 id 去重合并</text>
+
+  <rect x="40" y="300" width="230" height="64" rx="11" fill="url(#card)" stroke="#cbd5e1"/>
+  <text x="155" y="328" text-anchor="middle" font-size="13" font-weight="600" fill="#0f172a">投影缓存 · projectionCache</text>
+  <text x="155" y="346" text-anchor="middle" font-size="11" fill="#475569">零 I/O 快照 · 秒开体验</text>
+
+  <!-- host API -->
+  <rect x="340" y="200" width="220" height="130" rx="12" fill="url(#host)"/>
+  <text x="450" y="232" text-anchor="middle" font-size="14" font-weight="600" fill="#ffffff">Host · lib/index.js</text>
+  <text x="450" y="254" text-anchor="middle" font-size="11.5" fill="#dbeafe">事件驱动缓存（防抖 500ms）</text>
+  <text x="450" y="274" text-anchor="middle" font-size="11.5" fill="#dbeafe">GET /api/state</text>
+  <text x="450" y="294" text-anchor="middle" font-size="11.5" fill="#dbeafe">四态判定 · 工作区分组</text>
+  <text x="450" y="314" text-anchor="middle" font-size="11.5" fill="#dbeafe">增量行计算 · 自愈重算</text>
+
+  <!-- arrows sources -> host -->
+  <line x1="270" y1="152" x2="330" y2="240" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#arr)"/>
+  <line x1="270" y1="242" x2="330" y2="260" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#arr)"/>
+  <line x1="270" y1="332" x2="330" y2="282" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- panel UI -->
+  <rect x="630" y="190" width="230" height="150" rx="12" fill="url(#ui)"/>
+  <text x="745" y="224" text-anchor="middle" font-size="14" font-weight="600" fill="#ffffff">总览面板 · lib/client.js</text>
+  <text x="745" y="246" text-anchor="middle" font-size="11.5" fill="#ede9fe">悬浮层 + 入口按钮（portal）</text>
+  <text x="745" y="266" text-anchor="middle" font-size="11.5" fill="#ede9fe">四态徽章 · 状态筛选 chip</text>
+  <text x="745" y="286" text-anchor="middle" font-size="11.5" fill="#ede9fe">localStorage 秒开缓存</text>
+  <text x="745" y="306" text-anchor="middle" font-size="11.5" fill="#ede9fe">乐观已读账本</text>
+  <text x="745" y="326" text-anchor="middle" font-size="11.5" fill="#ede9fe">点击行 → 跳转会话</text>
+
+  <!-- arrows host -> ui -->
+  <line x1="560" y1="250" x2="620" y2="250" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- footer note -->
+  <text x="450" y="430" text-anchor="middle" font-size="12" fill="#94a3b8">纯本地数据 · 无外部网络调用 · 所有状态仅存浏览器 localStorage</text>
+</svg>

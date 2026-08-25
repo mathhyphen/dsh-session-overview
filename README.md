@@ -2,6 +2,10 @@
 
 [![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD--3--Clause-blue.svg)](./LICENSE)
 
+<p align="center">
+  <img src="./docs/dataflow.svg" alt="dsh-session-overview 数据流图" width="720">
+</p>
+
 DSH（DeepSeek Harness）**会话总览面板插件** —— 纯 JavaScript 免构建，运行时注入即生效。
 
 工作区头部行旁多一颗「会话总览」图标按钮（内联 SVG 线性图标，随主题变色，与搜索/视图选项/添加工作区那排对齐），点开悬浮面板即可总览**全部会话**：
@@ -18,9 +22,9 @@ DSH（DeepSeek Harness）**会话总览面板插件** —— 纯 JavaScript 免�
 ### 方式一：GitHub（推荐）
 
 ```bash
-dshpm install github:<your-name>/dsh-session-overview
+dshpm install github:mathhyphen/dsh-session-overview
 # 或
-dsh plugin add github:<your-name>/dsh-session-overview
+dsh plugin add github:mathhyphen/dsh-session-overview
 ```
 
 安装后重启 dsh web 由 bundles 列表装配。
@@ -28,7 +32,7 @@ dsh plugin add github:<your-name>/dsh-session-overview
 ### 方式二：本地源码 + super-injector 运行时注入
 
 ```bash
-git clone https://github.com/<your-name>/dsh-session-overview.git
+git clone https://github.com/mathhyphen/dsh-session-overview.git
 ```
 
 然后在 DSH 会话里调用注入器工具：
