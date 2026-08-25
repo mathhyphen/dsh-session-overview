@@ -3,7 +3,7 @@
 [![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD--3--Clause-blue.svg)](./LICENSE)
 
 <p align="center">
-  <img src="./docs/dataflow.svg" alt="dsh-session-overview 数据流图" width="720">
+  <img src="./docs/panel-preview.svg" alt="dsh-session-overview 面板效果图" width="720">
 </p>
 
 DSH（DeepSeek Harness）**会话总览面板插件** —— 纯 JavaScript 免构建，运行时注入即生效。

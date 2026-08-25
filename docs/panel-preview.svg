@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560" font-family="'Segoe UI','Microsoft YaHei',system-ui,sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="14" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+  <rect width="820" height="560" rx="18" fill="url(#bg)"/>
+  <text x="410" y="38" text-anchor="middle" font-size="21" font-weight="700" fill="#e2e8f0">会话总览面板 · 安装后效果</text>
+  <text x="410" y="60" text-anchor="middle" font-size="12.5" fill="#94a3b8">工作区头部行入口按钮 → 悬浮总览面板（示例数据）</text>
+
+  <!-- header bar of DSH workspace -->
+  <rect x="60" y="86" width="700" height="44" rx="10" fill="#1e293b" stroke="#334155"/>
+  <rect x="76" y="98" width="120" height="20" rx="5" fill="#334155"/>
+  <text x="136" y="113" text-anchor="middle" font-size="11" fill="#94a3b8">搜索会话…</text>
+  <!-- the portal button -->
+  <rect x="672" y="97" width="30" height="24" rx="6" fill="#4b82f0"/>
+  <text x="687" y="113" text-anchor="middle" font-size="12" fill="#fff">◎</text>
+  <text x="712" y="113" font-size="10" fill="#7dd3fc">总览</text>
+  <!-- callout -->
+  <line x1="687" y1="122" x2="687" y2="138" stroke="#60a5fa" stroke-width="2"/>
+  <text x="687" y="152" text-anchor="middle" font-size="10.5" fill="#93c5fd">入口按钮（portal 行内）</text>
+
+  <!-- panel -->
+  <g filter="url(#shadow)">
+  <rect x="120" y="178" width="580" height="340" rx="12" fill="#171b25" stroke="#2b3245"/>
+  <!-- panel header -->
+  <text x="146" y="208" font-size="14" font-weight="700" fill="#e5eaf3">会话总览</text>
+  <text x="646" y="208" text-anchor="end" font-size="11" fill="#8b95a7">显示 8 / 共 8</text>
+  <rect x="552" y="194" width="50" height="20" rx="4" fill="#2b3245"/>
+  <text x="577" y="208" text-anchor="middle" font-size="10.5" fill="#aab3c5">☑ 分组</text>
+  <line x1="140" y1="222" x2="680" y2="222" stroke="#2b3245"/>
+
+  <!-- chips -->
+  <rect x="140" y="236" width="58" height="26" rx="13" fill="rgba(75,130,240,.16)" stroke="#4b82f0"/>
+  <circle cx="158" cy="249" r="4" fill="#9aa3b5"/>
+  <text x="184" y="253" font-size="11.5" fill="#c9cfdb">全部</text>
+  <rect x="206" y="236" width="72" height="26" rx="13" fill="#232a38" stroke="#3a4356"/>
+  <circle cx="224" cy="249" r="4" fill="#22c55e"/>
+  <text x="250" y="253" font-size="11.5" fill="#aab3c5">运行中</text>
+  <rect x="286" y="236" width="66" height="26" rx="13" fill="#232a38" stroke="#3a4356"/>
+  <circle cx="304" cy="249" r="4" fill="#3b82f6"/>
+  <text x="328" y="253" font-size="11.5" fill="#aab3c5">未读</text>
+  <rect x="360" y="236" width="66" height="26" rx="13" fill="#232a38" stroke="#3a4356"/>
+  <circle cx="378" cy="249" r="4" fill="#94a3b8"/>
+  <text x="402" y="253" font-size="11.5" fill="#aab3c5">空闲</text>
+  <rect x="434" y="236" width="66" height="26" rx="13" fill="#232a38" stroke="#3a4356"/>
+  <circle cx="452" cy="249" r="4" fill="#d97706"/>
+  <text x="476" y="253" font-size="11.5" fill="#aab3c5">归档</text>
+
+  <!-- group row -->
+  <rect x="140" y="274" width="540" height="24" fill="#1d232f"/>
+  <text x="150" y="290" font-size="11" font-weight="600" fill="#aab3c5">工作区 A · 4 个</text>
+
+  <!-- rows -->
+  <circle cx="156" cy="316" r="5" fill="#22c55e"/>
+  <text x="172" y="320" font-size="12" fill="#e5eaf3">会话 Alpha — 需求分析</text>
+  <text x="620" y="320" text-anchor="end" font-size="10.5" fill="#8b95a7">刚刚</text>
+  <line x1="150" y1="330" x2="670" y2="330" stroke="#242b3a"/>
+
+  <circle cx="156" cy="348" r="5" fill="#3b82f6"/>
+  <text x="172" y="352" font-size="12" fill="#e5eaf3">会话 Beta — 代码评审</text>
+  <text x="620" y="352" text-anchor="end" font-size="10.5" fill="#8b95a7">5 分钟前</text>
+  <line x1="150" y1="362" x2="670" y2="362" stroke="#242b3a"/>
+
+  <circle cx="156" cy="380" r="5" fill="#94a3b8"/>
+  <text x="172" y="384" font-size="12" fill="#e5eaf3">会话 Gamma — 文档整理</text>
+  <text x="620" y="384" text-anchor="end" font-size="10.5" fill="#8b95a7">1 小时前</text>
+  <line x1="150" y1="394" x2="670" y2="394" stroke="#242b3a"/>
+
+  <circle cx="156" cy="412" r="5" fill="#d97706"/>
+  <text x="172" y="416" font-size="12" fill="#e5eaf3">会话 Delta — 数据清洗</text>
+  <text x="620" y="416" text-anchor="end" font-size="10.5" fill="#8b95a7">昨天</text>
+
+  <!-- group 2 -->
+  <rect x="140" y="434" width="540" height="24" fill="#1d232f"/>
+  <text x="150" y="450" font-size="11" font-weight="600" fill="#aab3c5">未分组 · 4 个</text>
+
+  <circle cx="156" cy="472" r="5" fill="#3b82f6"/>
+  <text x="172" y="476" font-size="12" fill="#e5eaf3">会话 Epsilon — 问题排查</text>
+  <text x="620" y="476" text-anchor="end" font-size="10.5" fill="#8b95a7">2 小时前</text>
+  <line x1="150" y1="490" x2="670" y2="490" stroke="#242b3a"/>
+
+  <circle cx="156" cy="508" r="5" fill="#94a3b8"/>
+  <text x="172" y="512" font-size="12" fill="#e5eaf3">会话 Zeta — 草稿</text>
+  <text x="620" y="512" text-anchor="end" font-size="10.5" fill="#8b95a7">3 天前</text>
+  </g>
+
+  <!-- legend -->
+  <text x="410" y="545" text-anchor="middle" font-size="11" fill="#64748b">🟢 运行中　🔵 未读　⚪ 空闲　📦 归档　·　点击行跳转会话，未读自动标记</text>
+</svg>
